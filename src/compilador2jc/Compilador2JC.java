@@ -5,6 +5,7 @@
  */
 package compilador2jc;
 
+import archivos.cargarArchivo;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,28 +23,11 @@ public class Compilador2JC {
      */
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
-        //String cad = "Compiladores 2018-01 L.e.x.i.c.o";
-        //separarCadena(cad);
-        cargarArchivo();
-    }
-    
-    public static void cargarArchivo() throws FileNotFoundException, IOException{
-        FileInputStream fstream = new FileInputStream("Programa.2JC");
-        BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-        
-        String linea;
-        
-        while((linea = br.readLine()) != null){
-            //System.out.println(linea);
-            separarCadena(linea);
-        }
-        br.close();
-    }
-    
-    public static void separarCadena(String cadena){
-        String[] partes = cadena.split("[.\\-\\s\\n\\t\\,]");
-        for (String parte : partes) {
-            System.out.println(parte);
-        }
+        cargarArchivo cA = new cargarArchivo();
+        cA.cargarSimbolos();
+        cA.cargarPrograma();
+        cA.mostrarPrograma();
+        cA.eliminarSimbolosPrograma();  
+        //cA.mostrarPgmSinSimbolos();
     }
 }
