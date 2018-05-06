@@ -6,11 +6,7 @@
 package compilador2jc;
 
 import archivos.cargarArchivo;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 /**
  *
@@ -28,6 +24,5 @@ public class Compilador2JC {
         cA.cargarPrograma();
         cA.mostrarPrograma();
         cA.eliminarSimbolosPrograma();  
-        //cA.mostrarPgmSinSimbolos();
     }
 }
