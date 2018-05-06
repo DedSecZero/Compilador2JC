@@ -1,0 +1,22 @@
+Signos:
+@;:_&^$#\!
+
+Solo max 4 caracteres para token
+
+\@ salto de linea (Correccion \n)
+;!@ leer
+_#@ imprimir  <-- Modificado para evitar conflicto con salto de linea (Original: _#\@)
+&$@ if
+:^:@ else
+
+
+// Programa para imprimir Hola mundo
+
+^@ // inicio
+_#@ "Hola Mundo"\@
+$@ // fin
+
+
+-es simbolo
+luego
+Contiene alguno de los token?
