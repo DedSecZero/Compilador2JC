@@ -42,12 +42,14 @@ function analyze(){
     // Removes all new line default symbols
     txt = txt.replace(/\n/g,'');   
     var symbols = ['@|;|:|_|&|^|$|#|\\|!'];
-    var tokens = ['^@',';!@','_#@','&$@',':^:@','$@'];
+    var tokens = ['^@',';!@','_#@','&$@',':^:@','$@','int','string','&&', '||'];
     // Split text line by line
     txt = txt.split('\\@');
     // Text to be placed in analyzer
     var live = '';
+    var errors = '';
     var i = 0;
+    document.getElementById('results').innerHTML = "";
     for(var tx in txt){
         if(txt[tx] !== ""){
             var tmp = txt[tx];            
@@ -64,15 +66,20 @@ function analyze(){
                     }else{
                         //if (tmp[t].match(symbols)) {
                             window.lex_error = true;
-                            console.log("lex_error in line: " + (i+1));
+                            errors += "lex_error in line: " + (i+1) + "<br/>";
                             tmp[t] = '<span style="color: red" class="token">' + tmp[t] + '</span>';
                         //}
                     }
                 }
             }
-            live += i+1 + ' |  ' + tmp + '<br/>';
+            var fix = i+1;
+            if(i+1 < 10){
+                fix = '0' + fix;
+            }
+            live += fix + ' |&nbsp;&nbsp;' + tmp + '<br/>';
             i++;
         }
     }
+    document.getElementById('results').innerHTML = errors;
     document.getElementById('analyzer').innerHTML = live;   
 }

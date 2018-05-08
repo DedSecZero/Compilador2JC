@@ -1,22 +1,17 @@
-Signos:
+Symbols:
 @;:_&^$#\!
 
-Solo max 4 caracteres para token
+Max 4 symbols for each token
+Each token begins with "@"
 
-\@ salto de linea (Correccion \n)
-;!@ leer
-_#@ imprimir  <-- Modificado para evitar conflicto con salto de linea (Original: _#\@)
+\@ new line (Replaces "\n")
+;!@ read
+_#@ print  <-- Modified to avoid conclict with new line (Originally: _#\@)
 &$@ if
 :^:@ else
 
+// Eg: Program to print "Hola mundo"
 
-// Programa para imprimir Hola mundo
-
-^@ // inicio
-_#@ "Hola Mundo"\@
-$@ // fin
-
-
--es simbolo
-luego
-Contiene alguno de los token?
+^@ // start
+_#@ "Hello World"\@
+$@ // end

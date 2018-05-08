@@ -10,7 +10,6 @@
         <style>
             textarea#editor,textarea#analyzer{
                 width: 100%;
-                height: -webkit-fill-available;
             }
         </style>
     </head>
@@ -24,11 +23,21 @@
                                 <a class="navbar-brand">L/S Analyzer</a>
                             </div>
                             <ul class="nav navbar-nav">
+                                <li>
+                                    <a onclick="location.reload()" class="btn">New</a>
+                                </li>
                                 <li class="active">
                                     <a class="btn dropdown-toggle" data-toggle="dropdown">File</a>
                                     <ul class="dropdown-menu">
                                         <li><input class="form-control" type="file" id="fileinput" onchange='handleFileSelect();'/></li>
-                                    </ul> 
+                                        <li></li>
+                                    </ul>                                    
+                                </li>
+                                <li>
+                                    <a class="btn" data-toggle="modal" data-target="#myModalHelp">Help</a>
+                                </li>
+                                <li>
+                                    <a class="btn" data-toggle="modal" data-target="#myModalAbout">About</a>
                                 </li>
                             </ul>
                         </div>
@@ -44,7 +53,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <textarea class="lined" onkeyup="analyze(this)" id="editor"></textarea>
+                            <textarea onclick="analyze(this)" onkeyup="analyze(this)" id="editor" style="border: solid 1px;padding: 5px;height: 450px;overflow: auto;"></textarea>
                         </div>
                     </div>
                     <div class="row">
@@ -60,7 +69,77 @@
                         </div>
                     </div>
                     <div>
-                        <div id="analyzer"></div>
+                        <div id="analyzer" style="border: solid 1px;padding: 5px;height: 450px;overflow: auto;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Results:</h3>
+                        </div>
+                        <div class="col-md-12">
+                            <div id="results" style="border: solid 1px;padding: 5px;height: 125px;overflow: auto;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModalHelp" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">HELP</h4>
+                    </div>
+                    <div class="modal-body">
+                        <pre>
+Symbols:
+@;:_&^$#\!
+
+Max 4 symbols for each token
+Each token begins with "@"
+
+\@ new line (Replaces "\n")
+;!@ read
+_#@ print  <-- Modified to avoid conflicts with new line (Originally: _#\@)
+&$@ if
+:^:@ else
+
+// Eg: Program to print "Hola mundo"
+
+^@ // start
+_#@ "Hello World"\@
+$@ // end
+                        </pre>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModalAbout" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">ABOUT</h4>
+                    </div>
+                    <div class="modal-body">
+                        <pre>
+Compiladores 2018-1:
+
+CARLOS FERNANDO DONOSO
+JOHAN FERNANDO GARCÍA
+JULIÁN CAMILO GÓMEZ
+                        </pre>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

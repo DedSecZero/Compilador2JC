@@ -1,3 +1,3 @@
 ^@\@
-_#@ "Hola Mundo"\@
+_#@ "Hello World"\@
 $@\@
