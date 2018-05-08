@@ -1,18 +1,18 @@
 /*
  * JAVASCRIPT
  * 
- * JULIAN CAMILO GOMEZ VERGARA
- * COMPILADORES
+ * JULIAN GOMEZ
+ * CARLOS DONOSO
+ * JOHAN GARCIA
  * 
+ * COMPILADORES
  */
 
-var lex_error = false;
-var sin_error = false;
-
-// Plugin for numbered text area
-$(function () {
-    $(".lined").linedtextarea();
-});
+var lex_error;
+var next;
+var sin_error;
+var program = {};
+var schema = [];
 
 function handleFileSelect(){               
     if (!window.File || !window.FileReader || !window.FileList || !window.Blob){
@@ -38,48 +38,214 @@ function receivedText(){
 }
 
 function analyze(){
+    
+    lex_error = false;
+    next = true;
+    cleanSchema();
+    
     var txt = document.getElementById('editor').value;
+    
     // Removes all new line default symbols
-    txt = txt.replace(/\n/g,'');   
-    var symbols = ['@|;|:|_|&|^|$|#|\\|!'];
-    var tokens = ['^@',';!@','_#@','&$@',':^:@','$@','int','string','&&', '||'];
+    txt = txt.replace(/\n/g,'');
+    var tokens = ['\\^@|;!@|_#@|\\&\\$@|:\\^:@|\\$@'];
+    
     // Split text line by line
     txt = txt.split('\\@');
-    // Text to be placed in analyzer
+    
+    /*-LEXICAL----------------------------------------------------------------*/
+    
     var live = '';
     var errors = '';
-    var i = 0;
-    document.getElementById('results').innerHTML = "";
-    for(var tx in txt){
-        if(txt[tx] !== ""){
-            var tmp = txt[tx];            
-            // Trims to only one inner space
-            tmp = tmp.replace(/\s+/g,' ').trim();
-            tmp = tmp.split(' ');
-            for(var t in tmp){
-                // If not a word
-                if(tmp[t].indexOf("\"") === -1){
-                    // If it is a token
-                    if (tokens.indexOf(tmp[t]) !== -1) {
-                        window.lex_error = false;
-                        tmp[t] = '<span style="color: green" class="token">' + tmp[t] + '</span>';
+    
+    for(i in txt){
+        
+        if(txt[i] !== "") {
+
+            var parts = txt[i];
+            var tmp = '';
+            var words;
+            var numbers;
+            var conditions;
+
+            // Fix words
+            var patternWords = new RegExp('"(.*)"', 'g');
+            if (parts.match(patternWords)) {
+                words = parts.match(patternWords);
+                parts = parts.replace(patternWords, '??WORD??');
+            }
+            
+            // Fix numbers
+            var patternNumbers = new RegExp('\'(.*)\'', 'g');
+            if (parts.match(patternNumbers)) {
+                numbers = parts.match(patternNumbers);
+                parts = parts.replace(patternNumbers, '??NUMBER??');
+            }
+            
+            // Fix conditionals
+            var patternConditions = new RegExp('\\((.*)\\)\\s*\\?', 'g');
+            if (parts.match(patternConditions)) {
+                conditions = parts.match(patternConditions);
+                parts = parts.replace(patternConditions, '??CONDITION??');
+            }
+            
+            parts = parts.replace(/\s+/g,' ').trim();
+            parts = parts.split(' ');
+            
+            // Store schema separatedly
+            schema.push(parts);
+
+            // If last iteration
+            if(Number(i) == txt.length-2){
+                for(var s in schema){
+                    var elements = schema[s];
+                    
+                    // Here analize each row according to each token...
+                    
+                    /*for(var e in elements){
+                        
+                    }*/
+                }
+            }
+            
+            // Detect tokens
+            var patternTokens = new RegExp(tokens, 'g');
+            
+            for(p in parts){
+                
+                // First element
+                if(Number(p) == 0){
+                    
+                    if (parts[p].match(patternTokens)) {
+                        token = parts[p].match(patternTokens);
+                        tmp += parts[p].replace(patternTokens, '<span style=\"color:greenyellow;\">' + token + '</span>') + ' ';
+                        
+                    } else {
+                        lex_error = true;
+                        next = false;
+                        errors += "lex_error in line: " + (Number(i) + 1) + "<br/>";
+                        tmp += '<span style=\"color:red;\">' + parts[p] + '</span>' + ' ';
+                    }
+                    
+                } else {
+
+                    // Restore words and numbers
+                    if (parts[p] === "??WORD??") {
+                        tmp += '<span style=\"color:indianred;\">' + words + '</span>' + ' ';
+                    }else if (parts[p] === "??NUMBER??") {
+                        tmp += '<span style=\"color:cadetblue;\">' + numbers + '</span>' + ' ';
+                    }else if (parts[p] === "??CONDITION??") {
+                        tmp += '<span style=\"color:bisque;\">' + conditions + '</span>' + ' ';
                     }else{
-                        //if (tmp[t].match(symbols)) {
-                            window.lex_error = true;
-                            errors += "lex_error in line: " + (i+1) + "<br/>";
-                            tmp[t] = '<span style="color: red" class="token">' + tmp[t] + '</span>';
-                        //}
+                        lex_error = true;
+                        next = false;
+                        errors += "lex_error in line: " + (Number(i) + 1) + "<br/>";
+                        tmp += '<span style=\"color:red;\">' + parts[p] + '</span>' + ' ';
+                    }
+                }
+                
+            }
+            
+            var fix = Number(i) + 1;
+            if (Number(i) + 1 < 10) {
+                fix = '0' + fix;
+            }
+            var mark = '';
+            if(lex_error){
+                mark = '<span id="line-' + (Number(i) + 1) + '" class="error">' + fix + '</span>'
+                lex_error = false;                
+            }else{
+                mark = fix;
+                mark = '<span id="line-' + (Number(i) + 1) + '">' + fix + '</span>'
+            }
+            live += mark + ' |&nbsp;&nbsp;' + tmp + '<br/>';
+            
+        }
+    }
+    
+    /*-SYNTACTIC--------------------------------------------------------------*/
+    
+    if (live === "") {
+        errors = "Empty: Write some code in Editor";
+    }else{
+            
+            var code = document.getElementById('editor').value;
+            code = code.split('\n');
+            
+            // Max 4 symbols for each token
+            
+            // Each program starts with ^@\@ and ends with $@\@
+            for(c in code){
+                
+                var patternTokens = new RegExp(tokens, 'g');
+                
+                if(Number(c) === 0){
+                    if (!code[c].match(patternTokens)) {
+                        errors += "sin_error in line: " + 1 + " - Each program starts with ^@\\@<br/>";
+                    }
+                }
+                
+                if(Number(c) === code.length -1){
+                    if (!code[c].match(patternTokens)) {
+                        errors += "sin_error in line: " + code.length + " - Each program ends with $@\\@<br/>";
+                    }
+                    
+                }
+                
+            }
+            
+            // Each line ends with "\@"
+            for(c in code){
+                if (code[c] !== "") {
+                    var last = code[c].slice(-2);
+                    if (last !== "\\@") {
+                        errors += "sin_error in line: " + (Number(c) + 1) + " - Each line must end with \\@<br/>";
                     }
                 }
             }
-            var fix = i+1;
-            if(i+1 < 10){
-                fix = '0' + fix;
+            
+            // Every line begin with a token
+            for(c in code){
+                
+                var parts = code[c];
+                
+                parts = parts.replace(/\s+/g,' ').trim();
+                parts = parts.split(' ');
+                
+                var patternTokens = new RegExp(tokens, 'g');
+                
+                for(p in parts){
+                    if(Number(p) == 0){
+                        if (!parts[p].match(patternTokens)) {
+                            errors += "sin_error in line: " + (Number(c) + 1) + " - Each line must begin with a token<br/>";
+                        } 
+                    }
+
+                }
+
             }
-            live += fix + ' |&nbsp;&nbsp;' + tmp + '<br/>';
-            i++;
-        }
+             
+            // Strings are writen between ""
+            
+            
+            // Numbers and math operators (+,-,*,/) are writen between ''
+             
+            
+            // Everything between "(" and ")" is a logical operation (>,<,==,!=,&&,||)
+
+            console.log(schema);
+
     }
+    
+    /*------------------------------------------------------------------------*/
+    
+    // Set text to errors and compiler
     document.getElementById('results').innerHTML = errors;
-    document.getElementById('analyzer').innerHTML = live;   
+    document.getElementById('analyzer').innerHTML = live;  
+}
+
+function cleanSchema(){
+    // Clean the array if not ready for Syntactic analysis
+    while (schema.length) {
+        schema.pop();
+    }
 }

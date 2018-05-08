@@ -1,17 +1,37 @@
-Symbols:
+/******************************************************************************/
+
+Symbols set:
 @;:_&^$#\!
 
-Max 4 symbols for each token
-Each token begins with "@"
+/******************************************************************************/
 
-\@ new line (Replaces "\n")
-;!@ read
-_#@ print  <-- Modified to avoid conclict with new line (Originally: _#\@)
-&$@ if
-:^:@ else
+Rules:
+* Max 4 symbols for each token
+* Each program starts with ^@\@ and ends with $@\@
+* Every line begin with a token
+* Each line ends with "\@"
+* Strings are writen between ""
+* Numbers and math operators (+,-,*,/) are writen between ''
+* Everything between "(" and ")" is a logical operation (>,<,==,!=,&&,||)
 
-// Eg: Program to print "Hola mundo"
+/******************************************************************************/
 
-^@ // start
-_#@ "Hello World"\@
-$@ // end
+Combinations/Tokens:
+\@      new line (Replaces "\n")
+;!@     read
+_#@     print  <-- Modified to avoid conflict with new line (Originally: _#\@)
+&$@     if
+:^:@    else
+
+/******************************************************************************/
+
+Eg: 
+Program to print "Hello World and a single addition"
+
+^@\@                            // Start
+_#@ "Hello World"\@             // Strings ""
+_#@ '1+2'\@                     // Numbers ''
+&$@ (1==2) ? "true" : "false"\@ // Logic ()
+$@\@                            // End
+
+/******************************************************************************/
