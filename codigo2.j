@@ -1,8 +1,5 @@
 ^@\@
-_#@ "Digite un numero:"\@
-;!@ "a" \@
-_#@ "Digite otro numero:"\@
-;!@ "b" \@
-_#@ 'a+b'\@
+_#@ "Hola Mundo"\@
+_#@ '1+2'\@
 &$@ (1==2) ? "verdadero" : "falso"\@
 $@\@
