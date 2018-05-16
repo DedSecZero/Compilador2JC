@@ -1,37 +1,37 @@
 /******************************************************************************/
 
-Symbols set:
+Juego de simbolos:
 @;:_&^$#\!
 
 /******************************************************************************/
 
-Rules:
-* Max 4 symbols for each token
-* Each program starts with ^@\@ and ends with $@\@
-* Every line begin with a token
-* Each line ends with "\@"
-* Strings are writen between ""
-* Numbers and math operators (+,-,*,/) are writen between ''
-* Everything between "(" and ")" is a logical operation (>,<,==,!=,&&,||)
+Reglas:
+* Maximo 4 simbolos por cada token
+* Cada programa inicia con ^@\@ y termina con $@\@
+* Cada linea comienza con un token
+* Cada linea termina con "\@"
+* Las cadenas se escriben entre ""
+* Numeros y operadores matematicos (+,-,*,/) se escriben entre ''
+* Lo que esté entre "(" y ")" es una operacion logica (>,<,==,!=,&&,||)
 
 /******************************************************************************/
 
-Combinations/Tokens:
-\@      new line (Replaces "\n")
-;!@     read
-_#@     print  <-- Modified to avoid conflict with new line (Originally: _#\@)
-&$@     if
-:^:@    else
+Combinaciones/Tokens:
+\@      Nueva linea (Reemplaza a "\n")
+;!@     leer
+_#@     imprimier  <-- Se modifico para evitar conflictos con \@ (Original: _#\@)
+&$@     si
+:^:@    si no
 
 /******************************************************************************/
 
-Eg: 
-Program to print "Hello World and a single addition"
+Ej: 
+Programa para imprimir "Hola Mundo" y una suma sencilla.
 
-^@\@                            // Start
-_#@ "Hello World"\@             // Strings ""
-_#@ '1+2'\@                     // Numbers ''
-&$@ (1==2) ? "true" : "false"\@ // Logic ()
-$@\@                            // End
+^@\@                            // Inicio
+_#@ "Hola Mundo"\@             // Cadenas ""
+_#@ '1+2'\@                     // Numeros ''
+&$@ (1==2) ? "true" : "false"\@ // Operacion logica ()
+$@\@                            // Fin
 
 /******************************************************************************/

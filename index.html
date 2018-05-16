@@ -22,24 +22,24 @@
                     <nav class="navbar navbar-default">
                         <div class="container-fluid">
                             <div class="navbar-header">
-                                <a class="navbar-brand">L/S Analyzer</a>
+                                <a class="navbar-brand">Analizador Lex/Sin</a>
                             </div>
                             <ul class="nav navbar-nav">
                                 <li>
-                                    <a onclick="location.reload()" class="btn">New</a>
+                                    <a onclick="location.reload()" class="btn">Nuevo</a>
                                 </li>
                                 <li class="active">
-                                    <a class="btn dropdown-toggle" data-toggle="dropdown">File</a>
+                                    <a class="btn dropdown-toggle" data-toggle="dropdown">Archivo</a>
                                     <ul class="dropdown-menu">
                                         <li><input onclick="cleanSchema();document.getElementById('editor').innerHTML = ''"  class="form-control" type="file" id="fileinput" onchange='handleFileSelect();'/></li>
                                         <li></li>
                                     </ul>                                    
                                 </li>
                                 <li>
-                                    <a class="btn" data-toggle="modal" data-target="#myModalHelp">Help</a>
+                                    <a class="btn" data-toggle="modal" data-target="#myModalHelp">Ayuda</a>
                                 </li>
                                 <li>
-                                    <a class="btn" data-toggle="modal" data-target="#myModalAbout">About</a>
+                                    <a class="btn" data-toggle="modal" data-target="#myModalAbout">Acerca de</a>
                                 </li>
                             </ul>
                         </div>
@@ -67,7 +67,7 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-12">
-                            <h3>Live compiler:</h3>
+                            <h3>Compilador en vivo:</h3>
                         </div>
                     </div>
                     <div>
@@ -79,7 +79,7 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-12">
-                            <h3>Results:</h3>
+                            <h3>Resultados:</h3>
                         </div>
                         <div class="col-md-12">
                             <div id="results" style="border: solid 1px;padding: 5px;height: 125px;overflow: auto;"></div>
@@ -94,51 +94,51 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">HELP</h4>
+                        <h4 class="modal-title">AYUDA</h4>
                     </div>
                     <div class="modal-body">
                         <pre>
 /******************************************************************************/
 
-Symbols set:
+Juego de simbolos:
 @;:_&^$#\!
 
 /******************************************************************************/
 
-Rules:
-* Max 4 symbols for each token
-* Each program starts with ^@\@ and ends with $@\@
-* Every line begin with a token
-* Each line ends with "\@"
-* Strings are writen between ""
-* Numbers and math operators (+,-,*,/) are writen between ''
-* Everything between "(" and ")" is a logical operation (>,<,==,!=,&&,||)
+Reglas:
+* Maximo 4 simbolos por cada token
+* Cada programa inicia con ^@\@ y termina con $@\@
+* Cada linea comienza con un token
+* Cada linea termina con "\@"
+* Las cadenas se escriben entre ""
+* Numeros y operadores matematicos (+,-,*,/) se escriben entre ''
+* Lo que esté entre "(" y ")" es una operacion logica (>,<,==,!=,&&,||)
 
 /******************************************************************************/
 
-Combinations/Tokens:
-\@      new line (Replaces "\n")
-;!@     read
-_#@     print  <-- Modified to avoid conflict with new line (Originally: _#\@)
-&$@     if
-:^:@    else
+Combinaciones/Tokens:
+\@      Nueva linea (Reemplaza a "\n")
+;!@     leer
+_#@     imprimier  <-- Se modifico para evitar conflictos con \@ (Original: _#\@)
+&$@     si
+:^:@    si no
 
 /******************************************************************************/
 
-Eg: 
-Program to print "Hello World and a single addition"
+Ej: 
+Programa para imprimir "Hola Mundo" y una suma sencilla.
 
-^@\@                            // Start
-_#@ "Hello World"\@             // Strings ""
-_#@ '1+2'\@                     // Numbers ''
-&$@ (1==2) ? "true" : "false"\@ // Logic ()
-$@\@                            // End
+^@\@                            // Inicio
+_#@ "Hola Mundo"\@             // Cadenas ""
+_#@ '1+2'\@                     // Numeros ''
+&$@ (1==2) ? "true" : "false"\@ // Operacion logica ()
+$@\@                            // Fin
 
 /******************************************************************************/
                         </pre>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
             </div>
@@ -149,7 +149,7 @@ $@\@                            // End
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">ABOUT</h4>
+                        <h4 class="modal-title">ACERCA DE</h4>
                     </div>
                     <div class="modal-body">
                         <pre>
@@ -165,7 +165,7 @@ JULIAN CAMILO GOMEZ
                         </pre>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
             </div>

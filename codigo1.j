@@ -1,5 +1,5 @@
 ^@\@
-_#@ "Hello World"\@
+_#@ "Hola Mundo"\@
 _#@ '1+2'\@
-&$@ (1==2) ? "true" : "false"\@
+&$@ (1==2) ? "verdadero" : "falso"\@
 $@\@

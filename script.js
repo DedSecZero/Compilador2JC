@@ -16,15 +16,15 @@ var schema = [];
 
 function handleFileSelect(){               
     if (!window.File || !window.FileReader || !window.FileList || !window.Blob){
-        alert('File Api not supported');
+        alert('El api de archivos no esta soportado');
         return;
     }
     input = document.getElementById('fileinput');
     if (!input){
-        alert("File not found");
+        alert("Archivo no encontrado");
     }
     else if (!input.files){
-        alert("Your browser is too old");
+        alert("Su navegador es muy antiguo");
     }
     else{
         file = input.files[0];
@@ -71,21 +71,21 @@ function analyze(){
             var patternWords = new RegExp('"(.*)"', 'g');
             if (parts.match(patternWords)) {
                 words = parts.match(patternWords);
-                parts = parts.replace(patternWords, '??WORD??');
+                parts = parts.replace(patternWords, '??PALABRA??');
             }
             
             // Fix numbers
             var patternNumbers = new RegExp('\'(.*)\'', 'g');
             if (parts.match(patternNumbers)) {
                 numbers = parts.match(patternNumbers);
-                parts = parts.replace(patternNumbers, '??NUMBER??');
+                parts = parts.replace(patternNumbers, '??NUMERO??');
             }
             
             // Fix conditionals
             var patternConditions = new RegExp('\\((.*)\\)\\s*\\?', 'g');
             if (parts.match(patternConditions)) {
                 conditions = parts.match(patternConditions);
-                parts = parts.replace(patternConditions, '??CONDITION??');
+                parts = parts.replace(patternConditions, '??CONDICION??');
             }
             
             parts = parts.replace(/\s+/g,' ').trim();
@@ -122,23 +122,23 @@ function analyze(){
                     } else {
                         lex_error = true;
                         next = false;
-                        errors += "lex_error in line: " + (Number(i) + 1) + "<br/>";
+                        errors += "Error lexico en la linea: " + (Number(i) + 1) + "<br/>";
                         tmp += '<span style=\"color:red;\">' + parts[p] + '</span>' + ' ';
                     }
                     
                 } else {
 
                     // Restore words and numbers
-                    if (parts[p] === "??WORD??") {
+                    if (parts[p] === "??PALABRA??") {
                         tmp += '<span style=\"color:indianred;\">' + words + '</span>' + ' ';
-                    }else if (parts[p] === "??NUMBER??") {
+                    }else if (parts[p] === "??NUMERO??") {
                         tmp += '<span style=\"color:cadetblue;\">' + numbers + '</span>' + ' ';
-                    }else if (parts[p] === "??CONDITION??") {
+                    }else if (parts[p] === "??CONDICION??") {
                         tmp += '<span style=\"color:bisque;\">' + conditions + '</span>' + ' ';
                     }else{
                         lex_error = true;
                         next = false;
-                        errors += "lex_error in line: " + (Number(i) + 1) + "<br/>";
+                        errors += "Error lexico en la linea: " + (Number(i) + 1) + "<br/>";
                         tmp += '<span style=\"color:red;\">' + parts[p] + '</span>' + ' ';
                     }
                 }
@@ -165,7 +165,7 @@ function analyze(){
     /*-SYNTACTIC--------------------------------------------------------------*/
     
     if (live === "") {
-        errors = "Empty: Write some code in Editor";
+        errors = "Vacio: Escriba algo de codigo en el Editor";
     }else{
             
             var code = document.getElementById('editor').value;
@@ -180,13 +180,13 @@ function analyze(){
                 
                 if(Number(c) === 0){
                     if (!code[c].match(patternTokens)) {
-                        errors += "sin_error in line: " + 1 + " - Each program starts with ^@\\@<br/>";
+                        errors += "Error sintactico en la linea: " + 1 + " - Cada programa inicia con ^@\\@<br/>";
                     }
                 }
                 
                 if(Number(c) === code.length -1){
                     if (!code[c].match(patternTokens)) {
-                        errors += "sin_error in line: " + code.length + " - Each program ends with $@\\@<br/>";
+                        errors += "Error sintactico en la linea: " + code.length + " - Cada programa termina con $@\\@<br/>";
                     }
                     
                 }
@@ -198,7 +198,7 @@ function analyze(){
                 if (code[c] !== "") {
                     var last = code[c].slice(-2);
                     if (last !== "\\@") {
-                        errors += "sin_error in line: " + (Number(c) + 1) + " - Each line must end with \\@<br/>";
+                        errors += "Error sintactico en la linea: " + (Number(c) + 1) + " - Cada linea debe terminar con \\@<br/>";
                     }
                 }
             }
@@ -216,7 +216,7 @@ function analyze(){
                 for(p in parts){
                     if(Number(p) == 0){
                         if (!parts[p].match(patternTokens)) {
-                            errors += "sin_error in line: " + (Number(c) + 1) + " - Each line must begin with a token<br/>";
+                            errors += "Error sintactico en la linea: " + (Number(c) + 1) + " - Cada linea debe inicar con un token<br/>";
                         } 
                     }
 
