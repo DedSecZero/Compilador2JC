@@ -25,14 +25,22 @@
                                 <a class="navbar-brand">Analizador Lex/Sin</a>
                             </div>
                             <ul class="nav navbar-nav">
-                                <li>
+                                <li class="active">
                                     <a onclick="location.reload()" class="btn">Nuevo</a>
                                 </li>
-                                <li class="active">
+                                <li>
                                     <a class="btn dropdown-toggle" data-toggle="dropdown">Archivo</a>
                                     <ul class="dropdown-menu">
                                         <li><input onclick="cleanSchema();document.getElementById('editor').innerHTML = ''"  class="form-control" type="file" id="fileinput" onchange='handleFileSelect();'/></li>
                                         <li></li>
+                                    </ul>                                    
+                                </li>
+                                <li>
+                                    <a class="btn dropdown-toggle" data-toggle="dropdown">Descargar ejemplos</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="codigo.j" download="">Ejemplo 1</a></li>
+                                        <li><a href="codigo1.j" download="">Ejemplo 2</a></li>
+                                        <li><a href="codigo2.j" download="">Ejemplo 3</a></li>
                                     </ul>                                    
                                 </li>
                                 <li>
