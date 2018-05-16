@@ -35,6 +35,7 @@ function handleFileSelect(){
 }
 function receivedText(){
     document.getElementById('editor').appendChild(document.createTextNode(fr.result));
+    analyze();
 }
 
 function analyze(){
