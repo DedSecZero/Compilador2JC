@@ -4,5 +4,5 @@ _#@ "Digite un numero:"\@
 _#@ "Digite otro numero:"\@
 ;!@ "b" \@
 _#@ 'a+b'\@
-&$@ (1==2) ? "verdadero" : "falso"\@
+&$@ (1==1) {;!@ "verdadero"}\@
 $@\@
