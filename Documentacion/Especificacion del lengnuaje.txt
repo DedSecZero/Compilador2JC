@@ -15,7 +15,7 @@ Reglas:
 * Lo que este entre "(" y ")" es una operacion logica (>,<,==,!=,&&,||)
 * La parte verdadera de la operación lógica va dentro de "{" y "}"
 * Los saltos de linea dentro de { y } se escrien \|
-* Se soportan comentarios en cada línea usando // Comentario
+* Se soportan comentarios entre líneas usando: // Ejemplo de comentario
 
 /******************************************************************************/
 

@@ -42,10 +42,10 @@
                                         <li><a href="codigo1.j" download="">Ejemplo 1</a></li>
                                         <li><a href="codigo2.j" download="">Ejemplo 2</a></li>
                                         <li><a href="codigo3.j" download="">Ejemplo 3</a></li>
-                                        <li><a href="codigoFinal.j" download="">Código final</a></li>
                                         <li><a href="AreaCirculo.j" download="">Área círculo</a></li>
                                         <li><a href="AreaRectangulo.j" download="">Área rectánculo</a></li>
                                         <li><a href="AreaTriangulo.j" download="">Área triángulo</a></li>
+                                        <li><a href="codigoFinal.j" download="">Código final</a></li>
                                     </ul>                                    
                                 </li>
                                 <li>
@@ -68,7 +68,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <textarea onclick="analyze(this)" onkeyup="analyze(this)" id="editor" style="border: solid 1px;padding: 5px;height: 450px;overflow: auto;"></textarea>
+                            <textarea onclick="analyze(this)" onkeyup="analyze(this)" id="editor" style="border: solid 1px;padding: 5px;height: 350px;overflow: auto;"></textarea>
                         </div>
                     </div>
                     <div class="row">
@@ -80,22 +80,32 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-12">
-                            <h3>Compilador en vivo:</h3>
+                            <h3>Compilador en vivo: <a title="Pase el mouse sobre los elementos para ver su descripción.">?</a></h3>
                         </div>
                     </div>
                     <div>
-                        <div id="analyzer" style="border: solid 1px;padding: 5px;height: 450px;overflow: auto;background: black;color: white;"></div>
+                        <div id="analyzer" style="border: solid 1px;padding: 5px;height: 350px;overflow: auto;background: black;color: white;"></div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-12">
                             <h3>Resultados:</h3>
                         </div>
                         <div class="col-md-12">
-                            <div id="results" style="border: solid 1px;padding: 5px;height: 125px;overflow: auto;"></div>
+                            <div id="results" style="border: solid 1px;padding: 5px;height: 250px;overflow: auto;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Esquema</h3>
+                        </div>
+                        <div class="col-md-12">
+                            <div id="schema" style="border: solid 1px;padding: 5px;height: 250px;overflow: auto;"></div>
                         </div>
                     </div>
                 </div>

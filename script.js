@@ -131,7 +131,7 @@ function analyze(){
                     
                     if (parts[p].match(patternTokens)) {
                         token = parts[p].match(patternTokens);
-                        tmp += parts[p].replace(patternTokens, '<span style=\"color:greenyellow;\">' + token + '</span>') + ' ';
+                        tmp += parts[p].replace(patternTokens, '<span title="Token" style=\"color:greenyellow;\">' + token + '</span>') + ' ';
                         
                     } else {
                         lex_error = true;
@@ -144,13 +144,13 @@ function analyze(){
 
                     // Restore words and numbers
                     if (parts[p] === "??PALABRA??") {
-                        tmp += '<span style=\"color:indianred;\">' + words + '</span>' + ' ';
+                        tmp += '<span title="Cadena/Variable" style=\"color:indianred;\">' + words + '</span>' + ' ';
                     }else if (parts[p] === "??NUMERO??") {
-                        tmp += '<span style=\"color:cadetblue;\">' + numbers + '</span>' + ' ';
+                        tmp += '<span title="Numero/Operacion" style=\"color:cadetblue;\">' + numbers + '</span>' + ' ';
                     }else if (parts[p] === "??CONDICION??") {
-                        tmp += '<span style=\"color:bisque;\">' + conditions + '</span>' + ' ';
+                        tmp += '<span title="Condicion" style=\"color:bisque;\">' + conditions + '</span>' + ' ';
                     }else if (parts[p] === "??VERDAD??") {
-                        tmp += '<span style=\"color:coral;\">' + verdad + '</span>' + ' ';
+                        tmp += '<span title="Bloque de codigo Si" style=\"color:coral;\">' + verdad + '</span>' + ' ';
                     }else{
                         lex_error = true;
                         next = false;
@@ -256,11 +256,109 @@ function analyze(){
 
     }
     
+    /*-SEMANTIC--------------------------------------------------------------*/
+    
+    if (live === "") {
+        errors = "Vacio: Escriba algo de codigo en el Editor";
+    } else {
+
+        var code = document.getElementById('editor').value;
+
+        // Removes all comments if exists
+        code = code.replace(/\s*\/\/(.*)+/g, '');
+
+        code = code.split('\n');
+        
+        // Find numbers
+        var patternNumbers = new RegExp('\'(.*)\'', 'g');
+        
+        // Go through code line by line
+        for(c in code){    
+            
+            // Fix true
+            var patternVerdad = new RegExp('{(.*)}', 'g');
+            var vdd;
+            
+            if (code[c].match(patternVerdad)) {
+                vdd = code[c].match(patternVerdad);
+                code[c] = code[c].replace(patternVerdad, '??VERDAD??');
+            }
+            
+            var vars;
+            
+            // If find a match of numbers and opetators
+            if (code[c].match(patternNumbers)) {
+                vars = code[c].match(patternNumbers);
+                
+                var tmp;
+                
+                // Splits the values separated by signs of +,-,*,/
+                for(v in vars){
+                    tmp = vars[v];
+                    tmp = tmp.split(/[+\-\*\/]/);
+                                        
+                    for(t in tmp){
+                        // If the current value is not a number (a variable)
+                        if(isNaN(tmp[t].replace('\'', ''))){
+                            
+                            var x = tmp[t].replace('\'', '');
+                            var declared;
+                            
+                            // goes from the beginning to the current position looking for the declaration
+                            for(var i = 0; i < c; i++){
+                                
+                                // find declaration
+                                var patternSearch1 = new RegExp(';!@\\s*"' + x + '"', 'g');
+                                
+                                // find declaration
+                                var patternSearch2 = new RegExp(';!@\\s*"' + x + '\\s*=\\s*(.*)"', 'g');
+                                
+                                if (code[i].match(patternSearch1) || code[i].match(patternSearch2)) {
+                                    declared = true;
+                                    break;
+                                }else{
+                                    declared = false;
+                                }
+                            }
+                            
+                            if(!declared){
+                                errors += "Error semántico: variable: " + x + " no declarada.<br/>";
+                            }
+                            
+                        }
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
     /*------------------------------------------------------------------------*/
+    
     
     // Set text to errors and compiler
     document.getElementById('results').innerHTML = errors;
-    document.getElementById('analyzer').innerHTML = live;  
+    document.getElementById('analyzer').innerHTML = live; 
+    var txt = '';
+    
+    for(s in schema){
+        
+        for(v in schema[s]){
+            if(Number(s) === 0){
+                txt += schema[s] + ' (raiz)';
+            }else if(Number(s) === Number(schema.length-1)){
+                txt += schema[s] + ' (fin)';
+            }else{
+                txt += schema[s][v] + ' ->';
+            }
+            
+        }
+        txt += '<br/>';
+    }
+    document.getElementById('schema').innerHTML = txt;
 }
 
 function cleanSchema(){

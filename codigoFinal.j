@@ -14,4 +14,5 @@ _#@ "Elija una opción.\n"\@
 // Imprime el radio del rectangulo
 // Lee b, base y h altura e imprime el area
 &$@ (a==3) {_#@ "Base del rectángulo:" \| ;!@ "b" \| _#@ "Altura del rectángulo.\n" \| ;!@ "h" \| _#@ "Área del rectángulo: " \| _#@ 'b*h'}\@
+//;!@ 'a+variable1+var2*5'\@ // Error semántico (Descomentar para pruebas) <===============================================
 $@\@
