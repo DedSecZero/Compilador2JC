@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang='es'>
     <head>
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="jquery.js"></script>
         <script src="script.js"></script>
@@ -41,6 +42,7 @@
                                         <li><a href="codigo1.j" download="">Ejemplo 1</a></li>
                                         <li><a href="codigo2.j" download="">Ejemplo 2</a></li>
                                         <li><a href="codigo3.j" download="">Ejemplo 3</a></li>
+                                        <li><a href="codigoFinal.j" download="">Código final</a></li>
                                     </ul>                                    
                                 </li>
                                 <li>
@@ -108,39 +110,42 @@
                         <pre>
 /******************************************************************************/
 
-Juego de simbolos:
+Juego de símbolos:
 @;:_&^$#\!
 
 /******************************************************************************/
 
 Reglas:
-* Maximo 4 simbolos por cada token
+* Máximo 4 simbolos por cada token
 * Cada programa inicia con ^@\@ y termina con $@\@
-* Cada linea comienza con un token
-* Cada linea termina con "\@"
+* Cada línea comienza con un token
+* Cada línea termina con "\@"
 * Las cadenas se escriben entre ""
-* Numeros y operadores matematicos (+,-,*,/) se escriben entre ''
-* Lo que esté entre "(" y ")" es una operacion logica (>,<,==,!=,&&,||)
+* Numeros y operadores matemáticos (+,-,*,/) se escriben entre ''
+* Lo que este entre "(" y ")" es una operacion logica (>,<,==,!=,&&,||)
+* La parte verdadera de la operación lógica va dentro de "{" y "}"
+* Los saltos de linea dentro de { y } se escriben \|
+* Se soportan comentarios en cada línea usando: // Comentario
 
 /******************************************************************************/
 
 Combinaciones/Tokens:
-\@      Nueva linea (Reemplaza a "\n")
+//      Comentarios
+\@      Nueva línea (Reemplaza a "\n")
 ;!@     leer
-_#@     imprimier  <-- Se modifico para evitar conflictos con \@ (Original: _#\@)
+_#@     imprimir  <-- Se modificó para evitar conflictos con \@ (Original: _#\@)
 &$@     si
-:^:@    si no
 
 /******************************************************************************/
 
 Ej: 
 Programa para imprimir "Hola Mundo" y una suma sencilla.
 
-^@\@                            // Inicio
-_#@ "Hola Mundo"\@             // Cadenas ""
-_#@ '1+2'\@                     // Numeros ''
-&$@ (1==2) ? "true" : "false"\@ // Operacion logica ()
-$@\@                            // Fin
+^@\@                                // Inicio
+_#@ "Hola Mundo"\@                  // Cadenas ""
+_#@ '1+2'\@                         // Numeros ''
+&$@ (1==2) { "acciones" }\@         // Operacion logica ()
+$@\@                                // Fin
 
 /******************************************************************************/
                         </pre>

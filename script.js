@@ -46,6 +46,9 @@ function analyze(){
     
     var txt = document.getElementById('editor').value;
     
+    // Removes all comments if exists
+    txt = txt.replace(/\s*\/\/(.*)+/g,'');
+    
     // Removes all new line default symbols
     txt = txt.replace(/\n/g,'');
     var tokens = ['\\^@|;!@|_#@|\\&\\$@|:\\^:@|\\$@'];
@@ -58,8 +61,10 @@ function analyze(){
     var live = '';
     var errors = '';
     
+    // Read each line in the txt
     for(i in txt){
         
+        // If the line is not empty
         if(txt[i] !== "") {
 
             var parts = txt[i];
@@ -67,6 +72,14 @@ function analyze(){
             var words;
             var numbers;
             var conditions;
+            var verdad;
+
+            // Fix true
+            var patternVerdad = new RegExp('{(.*)}', 'g');
+            if (parts.match(patternVerdad)) {
+                verdad = parts.match(patternVerdad);
+                parts = parts.replace(patternVerdad, '??VERDAD??');
+            }
 
             // Fix words
             var patternWords = new RegExp('"(.*)"', 'g');
@@ -83,7 +96,7 @@ function analyze(){
             }
             
             // Fix conditionals
-            var patternConditions = new RegExp('\\((.*)\\)\\s*\\?', 'g');
+            var patternConditions = new RegExp('\\((.*)\\)', 'g');
             if (parts.match(patternConditions)) {
                 conditions = parts.match(patternConditions);
                 parts = parts.replace(patternConditions, '??CONDICION??');
@@ -136,6 +149,8 @@ function analyze(){
                         tmp += '<span style=\"color:cadetblue;\">' + numbers + '</span>' + ' ';
                     }else if (parts[p] === "??CONDICION??") {
                         tmp += '<span style=\"color:bisque;\">' + conditions + '</span>' + ' ';
+                    }else if (parts[p] === "??VERDAD??") {
+                        tmp += '<span style=\"color:coral;\">' + verdad + '</span>' + ' ';
                     }else{
                         lex_error = true;
                         next = false;
@@ -170,6 +185,10 @@ function analyze(){
     }else{
             
             var code = document.getElementById('editor').value;
+            
+            // Removes all comments if exists
+            code = code.replace(/\s*\/\/(.*)+/g,'');
+            
             code = code.split('\n');
             
             // Max 4 symbols for each token
@@ -233,7 +252,7 @@ function analyze(){
             
             // Everything between "(" and ")" is a logical operation (>,<,==,!=,&&,||)
 
-            console.log(schema);
+            //console.log(schema);
 
     }
     
