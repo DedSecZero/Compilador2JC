@@ -31,10 +31,10 @@ _#@     imprimir  <-- Se modificó para evitar conflictos con \@ (Original: _#\@
 Ej: 
 Programa para imprimir "Hola Mundo" y una suma sencilla.
 
-^@\@                                // Inicio
-_#@ "Hola Mundo"\@                  // Cadenas ""
-_#@ '1+2'\@                         // Numeros ''
-&$@ (1==2) { "acciones" }\@         // Operacion logica ()
-$@\@                                // Fin
+^@\@                                    // Inicio
+_#@ "Hola Mundo"\@                      // Cadenas ""
+_#@ '1+2'\@                             // Numeros ''
+&$@ (1==2) { ;!@ "Diferentes" \| }\@    // Operacion logica ()
+$@\@                                    // Fin
 
 /******************************************************************************/
